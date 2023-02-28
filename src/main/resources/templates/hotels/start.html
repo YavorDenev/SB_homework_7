@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotels</title>
+</head>
+    <body>
+        <h1>Hotels list</h1>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" href="/hotels/create">Add new hotel</a>
+        <p></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Resort</th>
+                    <th>Rooms Count</th>
+                    <th>Stars Count</th>
+                    <th>Has Spa</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="h : ${hotels}">
+                    <td th:text="${h.id}"></td>
+                    <td th:text="${h.name}"></td>
+                    <td th:text="${h.resort.name}"></td>
+                    <td th:text="${h.roomsCount}"></td>
+                    <td th:text="${h.starsCount}"></td>
+                    <td th:text="${h.hasSpa}"></td>
+                    <td>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/hotels/edit/{hotelId}(hotelId=${h.id})}">Update...</a>
+                    </td>
+                    <td>
+                        <form th:action="@{/hotels/delete/{hotelId}(hotelId=${h.id})}" method="post">
+                            <input sec:authorize="hasRole('ROLE_ADMIN')" type="submit" name="del" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </p>
+        <a href="/">Back to main menu</a>
+    </body>
+</html>

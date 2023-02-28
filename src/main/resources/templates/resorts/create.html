@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Resort</title>
+</head>
+    <body>
+    <h1>Create New Resort</h1>
+        <form action="#" th:action="@{/resorts/submit}" method="post" th:object="${resort}">
+            <p>Name: <input type="text" th:field="*{name}" required></p>
+            <p>Country: <input type="text" th:field="*{country}" required></p>
+            <p>Type:
+                <select th:field="*{type}">
+                    <option th:value="winter" th:text="winter"></option>
+                    <option th:value="summer" th:text="summer"></option>
+                    <option th:value="other" th:text="other"></option>
+                </select>
+            </p>
+            <p><input type="submit" value="Save"></p>
+        </form>
+    </body>
+</html>

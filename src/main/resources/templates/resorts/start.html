@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Resorts</title>
+</head>
+    <body>
+
+        <h1>Resorts list</h1>
+
+        <a sec:authorize="hasRole('ROLE_ADMIN')" href="/resorts/create">Add new resort</a>
+        <p></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="r : ${resorts}">
+                    <td th:text="${r.id}"></td>
+                    <td th:text="${r.name}"></td>
+                    <td th:text="${r.country}"></td>
+                    <td th:text="${r.type}"></td>
+
+                    <td >
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/resorts/edit/{resortId}(resortId=${r.id})}">Update...</a>
+                    </td>
+                    <td >
+                        <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/resorts/delete/{resortId}(resortId=${r.id})}" method="post">
+                            <input type="submit" name="del" value="Delete">
+                        </form>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        </p>
+        <a href="/">Back to main menu</a>
+    </body>
+</html>

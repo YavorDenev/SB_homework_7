@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Hotel</title>
+</head>
+    <body>
+        <h1>Create New Hotel</h1>
+        <form action="#" th:action="@{/hotels/submit}" method="post" th:object="${hotel}">
+            <p>Name: <input type="text" th:field="*{name}" required></p>
+            <p>Resort:
+                <select th:field="*{resort}">
+                    <option th:each="r : ${resorts}"
+                            th:value="${r.id}"
+                            th:text="${r.name} + ', ' + ${r.country}">
+                    </option>
+                </select>
+            </p>
+            <p>Rooms Count: <input type="number" th:field="*{roomsCount}" required></p>
+            <p>Stars Count:
+                <select th:field="*{starsCount}">
+                    <option th:each="i : ${#numbers.sequence(0, 7)}"
+                            th:value="${i}"
+                            th:text="${i}">
+                    </option>
+                </select>
+            </p>
+            <p>Has Spa: <input type="checkbox" th:field="*{hasSpa}"></p>
+
+            <p><input type="submit" value="Save"></p>
+        </form>
+    </body>
+</html>
